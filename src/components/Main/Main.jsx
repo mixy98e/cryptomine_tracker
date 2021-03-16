@@ -1,8 +1,7 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, Typography, Grid, Divider} from '@material-ui/core';
+import { Card, CardHeader, CardContent, Typography, Divider} from '@material-ui/core';
 
 import useStyles from './styles';
-
 import Form from './Form/Form';
 import ProfitTable from './ProfitTable/ProfitTable'
 
@@ -21,7 +20,6 @@ const Main = () => {
                 <Form />                
                 <Divider />
                 <ProfitTable />
-                {/*doghnut chart* it will switch view with table*/}
             </CardContent>
         </Card>
     )

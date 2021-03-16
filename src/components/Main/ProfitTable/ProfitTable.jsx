@@ -2,22 +2,14 @@ import React from 'react'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core'
 
 import useStyles from './styles'
-
-function createData(name, rev, cost, profit) {
-    return { name, rev, cost, profit };
-  }
-
-const rows = [
-    createData("hour", 159.0, 9.0, 150.0),
-    createData("day", 237.0, 17.0, 220.0),
-    createData("month", 262.0, 16.0, 146.0),
-    createData("custom", 305.0, 3.7, 301.3)
-  ];
+import useFetch from '../../../context/useFetch'
 
 
 const ProfitTable = () => {
     const classes = useStyles();
-    
+    const { clacResult }=useFetch();//testing
+    const rows= clacResult ? clacResult : [];    
+
     return (
         <TableContainer component={Paper} className={classes.tablecnt}>
             <Table size='small' aria-label='dense profit table'>
@@ -31,7 +23,7 @@ const ProfitTable = () => {
                 </TableHead>
                 <TableBody>
                     {rows.map((row)=> (
-                     <TableRow key={row.name} className={row.name==='custom' && classes.custom}>
+                     <TableRow key={row.name} className={row.name==='custom'? classes.custom : ''}>
                          <TableCell>{row.name}</TableCell>
                          <TableCell align='right'>${row.rev}</TableCell>
                          <TableCell align='right' className={classes.bad}>${row.cost}</TableCell>

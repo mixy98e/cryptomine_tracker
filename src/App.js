@@ -2,7 +2,6 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 
 import useStyles from "./styles";
-
 import Main from "./components/Main/Main";
 import Details from "./components/Details/Details";
 
@@ -17,7 +16,7 @@ const App = () => {
         spacing={0}
         alignItems="center"
         justify="center"
-        style={{ height: "100vh" }}
+        style={{ height: "100vh", marginTop: "40px" }}
       >
         <Grid item xs={12} sm={3}>
           <Main />
