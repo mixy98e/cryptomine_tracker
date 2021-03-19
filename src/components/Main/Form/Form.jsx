@@ -1,31 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { TextField, Grid, Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
 import useStyles from './styles';
-import calculate from '../../../utils/calculate'
-import useFetch from '../../../context/useFetch'
+import getPrice from '../../../requests/priceFetch'
+import getCoinParameters from '../../../requests/parametersFetch'
+import calculateMineProfit from '../../../utils/calculateMineProfit'
+import { MineCalculatorContext } from '../../../context/context'
 
 const initialState = {
     coin: 'ETH',
-    mhs: '',
+    mhs: '0.0',
     period: '1',
     power: '0.0',
     cost: '0.0',
+    price: '0.0',
+    blockRev: 4.18968596639766,
+    diff: 5.407256463815861e15
 }
+
 
 const Form = () => {
     const classes = useStyles();
     const [formData, setFormData] = useState(initialState);
-    const { setCalcData, calcData } = useFetch();
+    const {getPTData} = useContext(MineCalculatorContext);
 
-    const calculateData = (fd, cd) => {
-        if(Number.isNaN(formData.mhs) || formData.mhs === ''
-                || Number.isNaN(formData.period)  || formData.period === '0')
-            return;
+    useEffect(() => {
+        getPrice().then(response => {
+            setFormData({...formData, price: response['ethereum'].usd});
+        });
+        getCoinParameters();//this should pull data from api [block_time and difficulty] but api is down
+      }, []);
 
-        console.log(fd, cd);
-        /*const result = calculate(formData, calcData);
-        console.log(result);*/
+    function calculate(){
+        getPTData(calculateMineProfit(formData));
     }
 
     return (
@@ -52,7 +59,7 @@ const Form = () => {
                     onChange={(e)=> setFormData({...formData, power: e.target.value})}/>
             </Grid>
             <Grid item xs={6}>
-                <TextField type="number" color="secondary" label='(W) cost' value={formData.cost} fullWidth 
+                <TextField type="number" color="secondary" label='(kWh) cost' value={formData.cost} fullWidth 
                     onChange={(e)=> setFormData({...formData, cost: e.target.value})}/>
             </Grid>
             <Button className={classes.button} variant='outlined' color='primary' fullWidth onClick={calculate}>Calculate</Button>

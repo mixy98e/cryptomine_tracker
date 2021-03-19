@@ -1,14 +1,14 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@material-ui/core'
 
 import useStyles from './styles'
-import useFetch from '../../../context/useFetch'
+import { MineCalculatorContext } from '../../../context/context'
 
 
 const ProfitTable = () => {
+    const {profitTable} = useContext(MineCalculatorContext);
     const classes = useStyles();
-    const { clacResult }=useFetch();//testing
-    const rows= clacResult ? clacResult : [];    
+    const rows=profitTable;
 
     return (
         <TableContainer component={Paper} className={classes.tablecnt}>
