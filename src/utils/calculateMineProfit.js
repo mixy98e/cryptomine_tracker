@@ -13,34 +13,25 @@ export default (data) => {
   rez = rez.toFixed(2);
   cost = cost.toFixed(2);
   profit = profit.toFixed(2);
-  //return [rev, cost, profit];
+
   return [
-    { name: "day", rev: rev * 24, cost: cost * 24, profit: profit * 24 },
+    {
+      name: "day",
+      rev: (rev * 24).toFixed(2),
+      cost: (cost * 24).toFixed(2),
+      profit: (profit * 24).toFixed(2),
+    },
     {
       name: "month",
-      rev: rev * 24 * 30,
-      cost: cost * 24 * 30,
-      profit: profit * 24 * 30,
+      rev: (rev * 24 * 30).toFixed(2),
+      cost: (cost * 24 * 30).toFixed(2),
+      profit: (profit * 24 * 30).toFixed(2),
     },
     {
       name: "period",
-      rev: rev * 24 * data.period,
-      cost: cost * 24 * data.period,
-      profit: profit * 24 * data.period,
+      rev: (rev * 24 * data.period).toFixed(2),
+      cost: (cost * 24 * data.period).toFixed(2),
+      profit: (profit * 24 * data.period).toFixed(2),
     },
   ];
 };
-
-/*
-function test(){
-
-	let x = 5.407256463815861e+15;
-	console.log(x);
-
-	console.log(x.toFixed(5));
-
-	let y = 1000000 / parseInt(x.toFixed(5));
-
-	console.log(y, y.toFixed(20));
-}
-*/

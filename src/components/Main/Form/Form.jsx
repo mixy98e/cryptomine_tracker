@@ -14,8 +14,8 @@ const initialState = {
     power: '0.0',
     cost: '0.0',
     price: '0.0',
-    blockRev: 4.18968596639766,
-    diff: 5.407256463815861e15
+    blockRev: '0.0',
+    diff: '0.0'
 }
 
 
@@ -25,10 +25,15 @@ const Form = () => {
     const {getPTData} = useContext(MineCalculatorContext);
 
     useEffect(() => {
-        getPrice().then(response => {
-            setFormData({...formData, price: response['ethereum'].usd});
+        Promise.all([
+            getPrice(),
+            getCoinParameters()
+        ]).then(([repPrice, repParams]) => {
+            setFormData({...formData,price: 
+                repPrice['ethereum'].usd, 
+                blockRev: repParams.ETH_blockRev, 
+                diff: repParams.ETH_diff});
         });
-        getCoinParameters();//this should pull data from api [block_time and difficulty] but api is down
       }, []);
 
     function calculate(){

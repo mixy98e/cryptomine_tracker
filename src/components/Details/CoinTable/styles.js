@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export default makeStyles((theme) => ({
   table: {
     [theme.breakpoints.up("sm")]: {
-      height: "28vh",
+      //height: "28vh",
     },
   },
 }));

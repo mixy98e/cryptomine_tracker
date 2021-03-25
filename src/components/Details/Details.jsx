@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, CardHeader, CardContent, Typography, Grid } from '@material-ui/core'
 import { Doughnut } from 'react-chartjs-2'
 
@@ -24,7 +24,7 @@ const options = {
     labels: ["Ups", "Downs"],
     datasets: [
       {
-        data: [300, 50],
+        data: [1, 1],
         backgroundColor: ['#2196f3', '#f50057'],
         hoverBackgroundColor: "lightgray"
       }
@@ -34,6 +34,9 @@ const options = {
 
 const Details = () => {
     const classes = useStyles();
+    const [dntData, setDntData] = useState(data);
+
+    console.log(dntData);
 
     return (
         <Grid container spacing={2}>
@@ -43,12 +46,12 @@ const Details = () => {
                     <CardContent>
                         <Grid container spacint={2}>
                             <Grid item xs={12} sm={7}>                    
-                                <PriceChart />
+                                <PriceChart outerStateData={dntData} outerStateFunc={setDntData}/>
                             </Grid>
                             <Grid item xs={12} sm={5}>
                                 <Typography align='center' variant='h5' style={{marginBottom: '15px'}}>Highs and lows</Typography>
                                 <Typography align='center' variant='subtitle2' style={{marginBottom: '15px'}}>Fluctiations based on last 24h</Typography>
-                                <Doughnut data={data} options={options} />
+                                <Doughnut data={dntData} options={options} />
                             </Grid>
                         </Grid>
                     </CardContent>
